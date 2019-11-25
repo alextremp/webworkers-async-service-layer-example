@@ -3,7 +3,7 @@ import "./App.css"
 import {TimeMeter} from "./meter/TimeMeter"
 import {PostCollection} from "./post/PostCollection"
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <TimeMeter></TimeMeter>
@@ -12,4 +12,4 @@ function App() {
   );
 }
 
-export default App;
+export default App

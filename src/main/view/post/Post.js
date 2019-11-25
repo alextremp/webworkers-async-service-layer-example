@@ -1,5 +1,7 @@
 import React, {Component} from "react"
 import postServiceFacade from "../../service/PostServiceFacade";
+import {DomainEventBus} from "../../bus/EventBus";
+import {postRenderEvent} from "./event/postRenderEvent";
 
 class Post extends Component {
   constructor(props) {
@@ -11,13 +13,19 @@ class Post extends Component {
   }
 
   componentDidMount() {
-    return postServiceFacade.getPost({
-      slug: this.props.slug
-    })
+    return postServiceFacade
+      .getPost({
+        slug: this.props.slug
+      })
       .then(post => this.setState({
         slug: post.id,
         title: post.title
       }))
+      .catch(error => this.setState({
+        slug: this.props.slug,
+        title: `[ERROR] ${error.message}`
+      }))
+      .then(() => DomainEventBus.raise(postRenderEvent({slug: this.state.slug})))
   }
 
   render() {

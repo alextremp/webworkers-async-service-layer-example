@@ -3,6 +3,13 @@ import ReactDOM from "react-dom"
 import "./index.css"
 import App from "./App"
 import * as serviceWorker from "./serviceWorker"
+import {DomainEventBus} from "../bus/EventBus";
+import {ERROR_THROWN} from "../bus/event/errorThrownEvent";
+
+DomainEventBus.register({
+  eventName: ERROR_THROWN,
+  observer: event => console.log('[ERROR]', event)
+})
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
